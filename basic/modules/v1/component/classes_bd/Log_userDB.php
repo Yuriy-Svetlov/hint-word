@@ -6,7 +6,7 @@ use Yii;
 
 
 
-class Log_userDBClass 
+class Log_userDB
 { 
 
 

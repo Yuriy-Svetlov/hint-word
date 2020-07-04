@@ -3,8 +3,8 @@ namespace app\modules\v1\models;
 
 use Yii;
 use yii\base\Model;
-use app\modules\v1\component\classes_bd\Log_userDBClass;
-
+use app\modules\v1\component\classes_bd\Log_userDB;
+use app\modules\v1\component\classes_bd\Result_search_wordDB;
 
 
 
@@ -117,7 +117,8 @@ class HintwordGET extends Model
 
         $db = Yii::$app->db;
 
-        Log_userDBClass::insert($db, $this->word, $this->ip);
+        Log_userDB::insert($db, $this->word, $this->ip);
+        Result_search_wordDB::insert_transaction($db, $hintword_arr);
 
         return $this->dataResponse($hintword_arr, 200);
     }

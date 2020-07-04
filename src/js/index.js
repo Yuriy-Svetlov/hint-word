@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 
 	$input_1.on('input',function(e){
-	    if(e.target.value.length > 4){
+	    if(e.target.value.length > 3){
 	    	sendRequest__GET(e.target.value, function(data){
 	    		setItemToList(data);
 	    	});
@@ -40,7 +40,7 @@ $(document).ready(function(){
 		var el_html = '<div class="INPUT_1__elements">';
 
 		jQuery.each(arr, function(index, item) {
-		    if(index > 6){
+		    if(index > 5){
 		    	return;
 		    }
 
