@@ -4,7 +4,7 @@
 
 $h1 = "About";
 
-$this->title = 'Test-Task';
+$this->title = $h1;
 
 ?>
 
