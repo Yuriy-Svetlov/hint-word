@@ -6,16 +6,11 @@ use yii\base\Model;
 use app\modules\v1\component\classes_bd\Log_userDB;
 use app\modules\v1\component\classes_bd\Result_search_wordDB;
 
-
-
 class HintwordGET extends Model
 {
 
-	
     public $word;
     public $ip;
-
-
 
 
     public function init()
@@ -24,8 +19,6 @@ class HintwordGET extends Model
         $this->ip = \Yii::$app->getRequest()->getUserIP();
 
     }
-
-
 
 
     public function rules()
@@ -47,9 +40,6 @@ class HintwordGET extends Model
     }
 
 
-
-
-    // Raw release
     private function getHintWordGoogle(){
         $curl = curl_init();
         $word = urlencode($this->word);
@@ -80,9 +70,6 @@ class HintwordGET extends Model
     }
 
 
-
-
-    // Raw release
     private function getArrHintWord(array $arr): array{
         $arr_res = [];
 
@@ -106,8 +93,6 @@ class HintwordGET extends Model
     }
 
 
-
-    
     public function getData(){
 
         $hintword_arr = $this->getHintWordGoogle();
@@ -124,8 +109,6 @@ class HintwordGET extends Model
     }
 
 
-
-
     private function dataResponse($data = NULL, $status = 200, $error = NULL){
         return json_encode([
             "data" => $data,            
@@ -133,8 +116,6 @@ class HintwordGET extends Model
             "error" => $error,            
         ]);
     }
-
-
 
 
     public function errorValidate(){
@@ -147,16 +128,9 @@ class HintwordGET extends Model
     }
 
 
-
-    /**
-    *
-    *
-    */
     public static function html_sanitize(string $str): string
     {
        return htmlspecialchars(strip_tags($str), ENT_QUOTES | ENT_HTML5, "UTF-8");   
     }
-
-
 
 }
