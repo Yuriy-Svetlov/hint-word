@@ -8,34 +8,26 @@ use app\modules\v1\component\classes_bd\Result_search_wordDB;
 
 class HintwordGET extends Model
 {
-
     public $word;
     public $ip;
-
+    
 
     public function init()
     {   
-
         $this->ip = \Yii::$app->getRequest()->getUserIP();
-
     }
 
 
     public function rules()
     {
         return [
-
             ['word', 'required'],
-
 
             ['word', 'match', 'pattern' => '/^[\w ]+$/iu', 'message' => 'Invalid character'],
 
-
             ['word', 'string', 'length' => [4, 250]],
 
-
             ['ip', 'ip'],
-
         ];
     }
 
@@ -94,7 +86,6 @@ class HintwordGET extends Model
 
 
     public function getData(){
-
         $hintword_arr = $this->getHintWordGoogle();
         if(!is_array($hintword_arr)){
             $hintword_arr = [];
@@ -105,6 +96,7 @@ class HintwordGET extends Model
         Log_userDB::insert($db, $this->word, $this->ip);
         Result_search_wordDB::insert_transaction($db, $hintword_arr);
 
+        //return $hintword_arr;
         return $this->dataResponse($hintword_arr, 200);
     }
 
@@ -115,16 +107,6 @@ class HintwordGET extends Model
             "status" => $status,
             "error" => $error,            
         ]);
-    }
-
-
-    public function errorValidate(){
-        $message_error = [];
-        foreach ($this->getErrors() as $key => $value) {
-            $message_error = $value[0];
-        }
-
-        return $this->dataResponse(NULL, 304, $message_error);
     }
 
 
