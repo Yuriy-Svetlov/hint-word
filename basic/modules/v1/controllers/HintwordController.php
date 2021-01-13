@@ -4,7 +4,7 @@ namespace app\modules\v1\controllers;
 
 use yii\rest\Controller;
 use yii;
-use app\modules\v1\models\HintwordGET;
+use app\modules\v1\models\HintwordIndex;
 
 
 class HintwordController extends Controller
@@ -35,30 +35,20 @@ class HintwordController extends Controller
 
     public function actionIndex()
     {   
-        $model = new HintwordGET();
+        $model = new HintwordIndex();
         $model->word = Yii::$app->request->get('word');
 
-        if($model->validate()){
-	        // Response - Not found
-	        //throw new NotFoundHttpException(
-	        //      'Object not found: ' . $model->id, 0
-	        //);         	
-            return $model->getData();
+        if(!$model->validate()){
+            Yii::$app->response->setStatusCode(422, 'Data Validation Failed.');
+          
+            $errors = [];
+            foreach ($model->getErrors() as $key => $value) {
+                $errors[] = ["field" => $key, "message" => $value[0]];
+            }
+            return $errors;      
         }
-
-		// Response - error of validation
-		// ------------------------------
-		if ($model->hasErrors()) {
-		  Yii::$app->response->setStatusCode(422, 'Data Validation Failed.');
-		  
-		  $errors = [];
-		  foreach ($model->getErrors() as $key => $value) {
-		      $errors[] = ["field" => $key, "message" => $value[0]];
-		  } 
-
-		  return $errors;
-		}  
-		// ------------------------------
+          
+        return $model->getListHintword();
     }
 
 }

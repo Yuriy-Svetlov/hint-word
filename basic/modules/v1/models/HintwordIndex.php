@@ -6,7 +6,7 @@ use yii\base\Model;
 use app\modules\v1\component\classes_bd\Log_userDB;
 use app\modules\v1\component\classes_bd\Result_search_wordDB;
 
-class HintwordGET extends Model
+class HintwordIndex extends Model
 {
     public $word;
     public $ip;
@@ -85,7 +85,7 @@ class HintwordGET extends Model
     }
 
 
-    public function getData(){
+    public function getListHintword(){
         $hintword_arr = $this->getHintWordGoogle();
         if(!is_array($hintword_arr)){
             $hintword_arr = [];
